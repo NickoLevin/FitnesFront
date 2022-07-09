@@ -63,6 +63,23 @@ const EquipmentPage = () => {
           <Typography gutterBottom>В количестве {el.amount}</Typography>
         </Card>
       ))}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Pagination
+          count={Math.ceil(equipment?.count / 4)}
+          color="secondary"
+          renderItem={(item, idx) => (
+            <PaginationItem
+              key={idx}
+              component={Button}
+              {...item}
+              onClick={(e) => {
+                item.onClick(e);
+                setPage(item.page);
+              }}
+            />
+          )}
+        />
+      </div>
     </Container>
   );
 };

@@ -19,6 +19,7 @@ function App() {
           <Route path="/equipment" element={<EquipmentPage />} />
           <Route path="*" element={<ClassesPage />} />
         </Routes>
+        <Footer />
       </RecoilRoot>
     </SnackbarProvider>
   );

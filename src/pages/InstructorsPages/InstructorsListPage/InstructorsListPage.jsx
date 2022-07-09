@@ -65,6 +65,11 @@ const InstructorListPage = () => {
           </Grid>
         ))}
       </Grid>
+      <Grid container sx={12}>
+        <Grid item xs={12}>
+          <Form refetch={() => setRefetch(!refetch)} />
+        </Grid>
+      </Grid>
     </Container>
   );
 };
