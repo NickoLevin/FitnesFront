@@ -63,7 +63,6 @@ const EquipmentPage = () => {
           <Typography gutterBottom>В количестве {el.amount}</Typography>
         </Card>
       ))}
-      <div style={{ display: "flex", justifyContent: "center" }}></div>
     </Container>
   );
 };

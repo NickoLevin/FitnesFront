@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Loader from "../../../components/Loader/Loader";
+import { Form } from "../../../components/Form";
 
 const InstructorListPage = () => {
   const [instructors, setInstructors] = useState();
