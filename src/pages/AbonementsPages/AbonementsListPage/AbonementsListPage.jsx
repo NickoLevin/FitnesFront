@@ -1,49 +1,57 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import {
-  Grid,
-  Container,
+  Card,
+  CardHeader,
+  Button,
+  IconButton,
+  CardMedia,
+  CardContent,
+  CardActions,
   Typography,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  ToggleButton,
-  ToggleButtonGroup,
-  TextField,
+  Collapse,
 } from "@mui/material";
-import Loader from "../../../components/Loader/Loader";
-import AbonementCard from "../../../components/AbonementCard/AbonementCard";
-import { apiState } from "../../../apiState";
-import { useRecoilState } from "recoil";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import React from "react";
 
-const AbonementsListPage = () => {
-  const [abonements, setAbonements] = useState();
-  const [state] = useRecoilState(apiState);
-  const [sort, setSort] = useState(false);
-  let navigate = useNavigate();
+import { styled } from "@mui/material/styles";
 
-  useEffect(() => {
-    async function getData() {
-      const response = await state.getAbonements();
-      setAbonements(response?.data);
-    }
-    getData();
-  }, []);
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
-  if (!abonements?.results) {
-    return <Loader />;
-  }
-  console.log(abonements);
+const AbonementCard = ({ abonement }) => {
+  const [expanded, setExpanded] = React.useState(false);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <Container sx={{ pb: 8 }} maxWidth="md">
-      <Grid container direction="column" alignItems="center" sx={{ mb: 2 }}>
-        <Typography gutterBottom variant="h3">
-          Наши фитнес-тренеры
-        </Typography>
-      </Grid>
-    </Container>
+    <Card sx={{ p: 1 }}>
+      <CardHeader
+        sx={{
+          minHeight: 68,
+          display: "inline-block",
+          position: "relative",
+        }}
+        title={`Абонемент на ${abonement.title}`}
+        subheader={`Цена ${abonement.price} в месяц`}
+        titleTypographyProps={{
+          verticalalign: "top",
+        }}
+        subheaderTypographyProps={{
+          position: "absolute",
+          bottom: 16,
+        }}
+      />
+      <Typography sx={{ p: 2 }}>{abonement.description}</Typography>
+    </Card>
   );
 };
 
-export default AbonementsListPage;
+export default AbonementCard;
